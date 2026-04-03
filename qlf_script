@@ -1,0 +1,710 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TeleportService = game:GetService("TeleportService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+local Window = Rayfield:CreateWindow({
+    Name = "QLF SCRIPT",
+    LoadingTitle = "DBU Script",
+    LoadingSubtitle = "Loading...",
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "QLF Script",
+        FileName = "settings"
+    },
+    KeySystem = false,
+})
+
+local AutoFarmTab = Window:CreateTab("Auto Farm", nil)
+local StatsReaderTab = Window:CreateTab("Stats Reader", nil)
+local AutoKillTab = Window:CreateTab("Auto Kill", nil)
+local MiscTab = Window:CreateTab("Misc", nil)
+
+
+
+AutoFarmTab:CreateSection("Auto Farm                               YOU CAN SCROLL DOWN")
+
+AutoFarmTab:CreateToggle({
+    Name = "Quest Boss",
+    CurrentValue = false,
+    Flag = "Boss",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Transformation",
+    CurrentValue = false,
+    Flag = "Transformation",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Skills",
+    CurrentValue = false,
+    Flag = "Skills",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Block",
+    CurrentValue = false,
+    Flag = "Block",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Charge",
+    CurrentValue = false,
+    Flag = "Charge",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateSection("Rebirth")
+
+AutoFarmTab:CreateToggle({
+    Name = "Rebirth",
+    CurrentValue = false,
+    Flag = "Rebirth",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Multi-Rebirth",
+    CurrentValue = false,
+    Flag = "MultiRebirth",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateSection("Raid")
+
+AutoFarmTab:CreateToggle({
+    Name = "Zamasu Raid (Solo)",
+    CurrentValue = false,
+    Flag = "ZamasuRaid",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateSection("No Quest Boss")
+
+AutoFarmTab:CreateToggle({
+    Name = "Cucumber",
+    CurrentValue = false,
+    Flag = "Cucumber",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Gotenks",
+    CurrentValue = false,
+    Flag = "Gotenks",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Whis 40%",
+    CurrentValue = false,
+    Flag = "Whis40",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Vegeto Ego Instinct",
+    CurrentValue = false,
+    Flag = "VegetoEgoInstinct",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Grand Priest",
+    CurrentValue = false,
+    Flag = "GrandPriest",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateSection("Dragon Balls")
+
+AutoFarmTab:CreateToggle({
+    Name = "Dragon Balls TP",
+    CurrentValue = false,
+    Flag = "DragonBallsTP",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoFarmTab:CreateToggle({
+    Name = "Dragon Balls ESP",
+    CurrentValue = false,
+    Flag = "DragonBallsESP",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+StatsReaderTab:CreateSection("Players                                      YOU CAN SCROLL DOWN")
+
+local statsPlayerNames = {}
+for _, p in pairs(Players:GetPlayers()) do
+    table.insert(statsPlayerNames, p.Name)
+end
+if #statsPlayerNames == 0 then statsPlayerNames = {"No players"} end
+
+local selectedStatsPlayer = statsPlayerNames[1]
+
+StatsReaderTab:CreateDropdown({
+    Name = "Player List",
+    Options = statsPlayerNames,
+    CurrentOption = {statsPlayerNames[1]},
+    Flag = "StatsPlayer",
+    Callback = function(Value)
+        selectedStatsPlayer = Value[1]
+    end,
+})
+
+StatsReaderTab:CreateButton({
+    Name = "Refresh List",
+    Callback = function()
+        statsPlayerNames = {}
+        for _, p in pairs(Players:GetPlayers()) do
+            table.insert(statsPlayerNames, p.Name)
+        end
+        Rayfield:Notify({
+            Title = "List Updated",
+            Content = #statsPlayerNames .. " player(s) found",
+            Duration = 3,
+        })
+    end,
+})
+
+
+
+
+StatsReaderTab:CreateSection("Stats")
+
+local strengthLabel  = StatsReaderTab:CreateLabel("Strength : ?")
+local speedLabel     = StatsReaderTab:CreateLabel("Speed : ?")
+local defenseLabel   = StatsReaderTab:CreateLabel("Defense : ?")
+local energyLabel    = StatsReaderTab:CreateLabel("Energy : ?")
+local rebirthLabel   = StatsReaderTab:CreateLabel("Rebirths : ?")
+
+StatsReaderTab:CreateButton({
+    Name = "View Stats",
+    Callback = function()
+        local target = Players:FindFirstChild(selectedStatsPlayer)
+        if not target then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Player not found.",
+                Duration = 3,
+            })
+            return
+        end
+
+        local leaderstats = target:FindFirstChild("leaderstats")
+        local statsFolder = target:FindFirstChild("Stats")
+            or target:FindFirstChild("PlayerStats")
+            or target:FindFirstChild("Data")
+
+        local function getStat(...)
+            for _, folder in ipairs({statsFolder, leaderstats}) do
+                if folder then
+                    for _, name in ipairs({...}) do
+                        local val = folder:FindFirstChild(name)
+                        if val then return tostring(val.Value) end
+                    end
+                end
+            end
+            return "?"
+        end
+
+        local strength = getStat("Strength", "Force", "STR", "Attack")
+        local speed    = getStat("Speed", "Vitesse", "SPD", "WalkSpeed")
+        local defense  = getStat("Defense", "DEF", "Defence")
+        local energy   = getStat("Energy", "Energie", "Ki", "ENG", "MaxKi")
+        local rebirths = getStat("Rebirths", "Rebirth", "Prestige")
+
+        strengthLabel:Set("Strength : " .. strength)
+        speedLabel:Set("Speed : "       .. speed)
+        defenseLabel:Set("Defense : "   .. defense)
+        energyLabel:Set("Energy : "     .. energy)
+        rebirthLabel:Set("Rebirths : "  .. rebirths)
+    end,
+})
+
+Players.PlayerAdded:Connect(function(p)
+    table.insert(statsPlayerNames, p.Name)
+end)
+Players.PlayerRemoving:Connect(function(p)
+    for i, name in ipairs(statsPlayerNames) do
+        if name == p.Name then
+            table.remove(statsPlayerNames, i)
+            break
+        end
+    end
+end)
+
+StatsReaderTab:CreateButton({
+    Name = "Copy Stats to Clipboard",
+    Callback = function()
+        local target = Players:FindFirstChild(selectedStatsPlayer)
+        if not target then
+            Rayfield:Notify({
+                Title = "Error",
+                Content = "Player not found.",
+                Duration = 3,
+            })
+            return
+        end
+
+        local leaderstats = target:FindFirstChild("leaderstats")
+        local statsFolder = target:FindFirstChild("Stats")
+            or target:FindFirstChild("PlayerStats")
+            or target:FindFirstChild("Data")
+
+        local function getStat(...)
+            for _, folder in ipairs({statsFolder, leaderstats}) do
+                if folder then
+                    for _, name in ipairs({...}) do
+                        local val = folder:FindFirstChild(name)
+                        if val then return tostring(val.Value) end
+                    end
+                end
+            end
+            return "?"
+        end
+
+        local strength = getStat("Strength", "Force", "STR", "Attack")
+        local speed    = getStat("Speed", "Vitesse", "SPD", "WalkSpeed")
+        local defense  = getStat("Defense", "DEF", "Defence")
+        local energy   = getStat("Energy", "Energie", "Ki", "ENG", "MaxKi")
+        local rebirths = getStat("Rebirths", "Rebirth", "Prestige")
+
+        local text = "Player: " .. target.Name ..
+                     "\nStrength: " .. strength ..
+                     "\nSpeed: "    .. speed ..
+                     "\nDefense: "  .. defense ..
+                     "\nEnergy: "   .. energy ..
+                     "\nRebirths: " .. rebirths
+
+        setclipboard(text)
+
+        Rayfield:Notify({
+            Title = "Copied!",
+            Content = "Stats copied to clipboard.",
+            Duration = 3,
+        })
+    end,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AutoKillTab:CreateSection("Players                                       YOU CAN SCROLL DOWN")
+
+local autoKillPlayerNames = {}
+for _, p in pairs(Players:GetPlayers()) do
+    if p ~= player then
+        table.insert(autoKillPlayerNames, p.Name)
+    end
+end
+if #autoKillPlayerNames == 0 then autoKillPlayerNames = {"No players"} end
+
+local selectedAutoKillPlayer = autoKillPlayerNames[1]
+
+AutoKillTab:CreateDropdown({
+    Name = "Player List",
+    Options = autoKillPlayerNames,
+    CurrentOption = {autoKillPlayerNames[1]},
+    Flag = "AutoKillPlayer",
+    Callback = function(Value)
+        selectedAutoKillPlayer = Value[1]
+    end,
+})
+
+AutoKillTab:CreateButton({
+    Name = "Refresh List",
+    Callback = function()
+        autoKillPlayerNames = {}
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= player then
+                table.insert(autoKillPlayerNames, p.Name)
+            end
+        end
+        Rayfield:Notify({
+            Title = "List Updated",
+            Content = #autoKillPlayerNames .. " player(s) found",
+            Duration = 3,
+        })
+    end,
+})
+
+AutoKillTab:CreateSection("Auto Kill")
+
+AutoKillTab:CreateToggle({
+    Name = "Skills",
+    CurrentValue = false,
+    Flag = "AKSkills",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoKillTab:CreateToggle({
+    Name = "Charge",
+    CurrentValue = false,
+    Flag = "AKCharge",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+AutoKillTab:CreateToggle({
+    Name = "TP",
+    CurrentValue = false,
+    Flag = "AKTP",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+local transformList = {
+    "Warrior of Love",
+    "Angelic Saiyan",
+    "Evil Saiyan",
+    "Ego Instinct",
+    "Primal Radiance",
+    "Primal Ruin",
+    "True Mui",
+    "True Jui",
+}
+
+local selectedTransform = transformList[1]
+
+AutoKillTab:CreateDropdown({
+    Name = "Transformation",
+    Options = transformList,
+    CurrentOption = {transformList[1]},
+    Flag = "AKTransformation",
+    Callback = function(Value)
+        selectedTransform = Value[1]
+    end,
+})
+
+AutoKillTab:CreateToggle({
+    Name = "Auto Transformation",
+    CurrentValue = false,
+    Flag = "AKAutoTransformation",
+    Callback = function(Value)
+        if Value then
+
+        else
+
+        end
+    end,
+})
+
+Players.PlayerAdded:Connect(function(p)
+    if p ~= player then
+        table.insert(autoKillPlayerNames, p.Name)
+    end
+end)
+Players.PlayerRemoving:Connect(function(p)
+    for i, name in ipairs(autoKillPlayerNames) do
+        if name == p.Name then
+            table.remove(autoKillPlayerNames, i)
+            break
+        end
+    end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MiscTab:CreateSection("ESP                                           YOU CAN SCROLL DOWN")
+
+MiscTab:CreateToggle({
+    Name = "ESP",
+    CurrentValue = false,
+    Flag = "MiscESP",
+    Callback = function(Value)
+        espEnabled = Value
+        if not Value then clearESP() end
+    end,
+})
+
+MiscTab:CreateSection("QOL")
+
+local shakeConnection = nil
+
+MiscTab:CreateToggle({
+    Name = "Anti Screen Shake",
+    CurrentValue = false,
+    Flag = "AntiShake",
+    Callback = function(Value)
+        if Value then
+            shakeConnection = RunService.RenderStepped:Connect(function()
+                camera.CameraType = Enum.CameraType.Custom
+            end)
+            for _, v in pairs(workspace:GetDescendants()) do
+                if v:IsA("Script") and v.Name:lower():find("shake") then
+                    v.Disabled = true
+                end
+            end
+        else
+            if shakeConnection then
+                shakeConnection:Disconnect()
+                shakeConnection = nil
+            end
+        end
+    end,
+})
+
+local fpsBoostEnabled = false
+
+MiscTab:CreateToggle({
+    Name = "FPS Boost",
+    CurrentValue = false,
+    Flag = "FPSBoost",
+    Callback = function(Value)
+        fpsBoostEnabled = Value
+        if Value then
+            for _, v in pairs(workspace:GetDescendants()) do
+                if v:IsA("ParticleEmitter") then v.Enabled = false
+                elseif v:IsA("Trail")       then v.Enabled = false
+                elseif v:IsA("Smoke")       then v.Enabled = false
+                elseif v:IsA("Fire")        then v.Enabled = false
+                elseif v:IsA("Sparkles")    then v.Enabled = false
+                end
+            end
+            game:GetService("Lighting").GlobalShadows = false
+            game:GetService("Lighting").FogEnd = 9e9
+        else
+            for _, v in pairs(workspace:GetDescendants()) do
+                if v:IsA("ParticleEmitter") then v.Enabled = true
+                elseif v:IsA("Trail")       then v.Enabled = true
+                elseif v:IsA("Smoke")       then v.Enabled = true
+                elseif v:IsA("Fire")        then v.Enabled = true
+                elseif v:IsA("Sparkles")    then v.Enabled = true
+                end
+            end
+            game:GetService("Lighting").GlobalShadows = true
+        end
+    end,
+})
+
+workspace.DescendantAdded:Connect(function(v)
+    if fpsBoostEnabled then
+        if v:IsA("ParticleEmitter") then v.Enabled = false
+        elseif v:IsA("Trail")       then v.Enabled = false
+        elseif v:IsA("Smoke")       then v.Enabled = false
+        elseif v:IsA("Fire")        then v.Enabled = false
+        elseif v:IsA("Sparkles")    then v.Enabled = false
+        end
+    end
+end)
+
+MiscTab:CreateToggle({
+    Name = "Anti-AFK",
+    CurrentValue = false,
+    Flag = "AntiAFK",
+    Callback = function(Value)
+        if Value then
+            player.Idled:Connect(function()
+                game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0), camera.CFrame)
+                task.wait(1)
+                game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0), camera.CFrame)
+            end)
+        end
+    end,
+})
+
+MiscTab:CreateSection("Codes")
+
+MiscTab:CreateButton({
+    Name = "Redeem All Codes",
+    Callback = function()
+
+    end,
+})
